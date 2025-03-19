@@ -1,5 +1,28 @@
 # k8s-hello-world
 
+## Requirements
+
+- Docker
+- Kind
+- kubectl
+
+### Installing Requirements with Homebrew
+
+1. Install Docker:
+   ```sh
+   brew install --cask docker
+   ```
+
+2. Install Kind:
+   ```sh
+   brew install kind
+   ```
+
+3. Install kubectl:
+   ```sh
+   brew install kubectl
+   ```
+
 ## How to run the server in a Docker container
 
 1. Build the Docker image:
