@@ -1,5 +1,40 @@
 # k8s-hello-world
 
+## Introduction
+
+### What is a Container?
+
+A container is a lightweight, standalone, and executable software package that
+includes everything needed to run a piece of software, including the code,
+runtime, system tools, libraries, and settings. Containers are isolated from
+each other and the host system, which makes them portable and consistent across
+different environments.
+
+### What is Kind?
+
+Kind (Kubernetes IN Docker) is a tool for running local Kubernetes clusters
+using Docker containers as nodes. It is primarily designed for testing
+Kubernetes itself, but it can also be used for local development or CI.
+
+### What is Kubernetes?
+
+Kubernetes is an open-source platform designed to automate deploying, scaling,
+and operating application containers. It groups containers that make up an
+application into logical units for easy management and discovery.
+
+### What is kubectl?
+
+kubectl is a command-line tool for interacting with a Kubernetes cluster. It
+allows you to run commands against Kubernetes clusters to deploy applications,
+inspect and manage cluster resources, and view logs.
+
+### What is a Pod?
+
+A pod is the smallest and simplest Kubernetes object. It represents a single
+instance of a running process in your cluster. A pod contains one or more
+containers, which are tightly coupled and share the same network namespace and
+storage.
+
 ## Requirements
 
 - Docker
@@ -58,9 +93,6 @@ kubectl config get-clusters
 ```
 
 ### How to create and view pods
-
-A pod is the smallest and simplest Kubernetes object. It represents a single
-instance of a running process in your cluster. A pod contains one container.
 
 To create a pod, use the following command:
 
