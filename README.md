@@ -35,6 +35,13 @@ instance of a running process in your cluster. A pod contains one or more
 containers, which are tightly coupled and share the same network namespace and
 storage.
 
+### What is a ReplicaSet?
+
+A ReplicaSet is a Kubernetes resource that ensures a specified number of pod
+replicas are running at any given time. If a pod crashes or is deleted, the
+ReplicaSet will automatically create a new pod to replace it, ensuring the
+desired state is maintained.
+
 ## Requirements
 
 - Docker
@@ -107,6 +114,28 @@ To view the status of your pods, use the following command:
 ```sh
 kubectl get pods
 ```
+
+Once the pod is running, you can test it by using port-forwarding to access the
+application in your browser. The commands for port-forwarding can be found in
+the "Useful Commands" section.
+
+### How to create and view ReplicaSets
+
+To create a ReplicaSet, use the following command:
+
+```sh
+kubectl apply -f k8s/replicaset.yaml
+```
+
+To view the status of your ReplicaSets, use the following command:
+
+```sh
+kubectl get replicasets
+```
+
+To test the ReplicaSet, you can view the pods, delete one of them, and then view
+the pods again to see that the ReplicaSet has automatically created a new pod.
+The commands for these actions can be found in the "Useful Commands" section.
 
 ## Useful Commands
 
