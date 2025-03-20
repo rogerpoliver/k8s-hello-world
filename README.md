@@ -100,6 +100,8 @@ To create a pod, use the following command:
 kubectl apply -f k8s/pod.yaml
 ```
 
+The name of the pod is defined in the `k8s/pod.yaml` file.
+
 To view the status of your pods, use the following command:
 
 ```sh
@@ -110,11 +112,12 @@ kubectl get pods
 
 ### How to do port-forwarding
 
-To forward a port from your local machine to a port on a pod, use the following
-command:
+Once you have the cluster and pods running, you can use port-forwarding to
+access your application on the desired port. For example, to forward port 8080
+from your local machine to port 8080 on the pod, use the following command:
 
 ```sh
-kubectl port-forward <pod-name> <local-port>:<pod-port>
+kubectl port-forward <pod-name> 8080:8080
 ```
 
 ### How to stop or delete pods, services, and clusters
