@@ -23,7 +23,9 @@
    brew install kubectl
    ```
 
-## How to run the server in a Docker container
+## Step-by-Step Guide
+
+### How to run the server in a Docker container
 
 1. Build the Docker image:
    ```sh
@@ -40,8 +42,65 @@
    docker push <your-user>/hello-go
    ```
 
-## Contents of the `k8s` folder
+### How to create and view clusters
 
-- `kind.yaml`: Configuration file to create a Kubernetes cluster using Kind
-  (Kubernetes IN Docker). This file defines a cluster with one control-plane
-  node and three worker nodes.
+Before creating a pod, you need to create a Kubernetes cluster. Use the
+following command to create a cluster:
+
+```sh
+kind create cluster --config=kind.yaml --name=<your-cluster-name>
+```
+
+To view the status of your clusters, use the following command:
+
+```sh
+kubectl config get-clusters
+```
+
+### How to create and view pods
+
+A pod is the smallest and simplest Kubernetes object. It represents a single
+instance of a running process in your cluster. A pod contains one container.
+
+To create a pod, use the following command:
+
+```sh
+kubectl apply -f k8s/pod.yaml
+```
+
+To view the status of your pods, use the following command:
+
+```sh
+kubectl get pods
+```
+
+## Useful Commands
+
+### How to do port-forwarding
+
+To forward a port from your local machine to a port on a pod, use the following
+command:
+
+```sh
+kubectl port-forward <pod-name> <local-port>:<pod-port>
+```
+
+### How to stop or delete pods, services, and clusters
+
+To stop or delete a pod, use the following command:
+
+```sh
+kubectl delete pod <pod-name>
+```
+
+To stop or delete a service, use the following command:
+
+```sh
+kubectl delete service <service-name>
+```
+
+To stop or delete a cluster, use the following command:
+
+```sh
+kind delete cluster --name=<your-cluster-name>
+```
