@@ -1,5 +1,36 @@
 # k8s-hello-world
 
+## Table of Contents
+
+1. [Introduction](#introduction)
+   - [What is a Container?](#what-is-a-container)
+   - [What is Kind?](#what-is-kind)
+   - [What is Kubernetes?](#what-is-kubernetes)
+   - [What is kubectl?](#what-is-kubectl)
+2. [Requirements](#requirements)
+   - [Installing Requirements](#installing-requirements)
+     - [Using Homebrew (macOS)](#using-homebrew-macos)
+     - [Using APT (Debian-based systems)](#using-apt-debian-based-systems)
+     - [Using Chocolatey (Windows)](#using-chocolatey-windows)
+3. [Step-by-Step Guide](#step-by-step-guide)
+   - [How to run the server in a Docker container](#how-to-run-the-server-in-a-docker-container)
+   - [How to create and view clusters](#how-to-create-and-view-clusters)
+     - [What is a Cluster?](#what-is-a-cluster)
+   - [How to create and view pods](#how-to-create-and-view-pods)
+     - [What is a Pod?](#what-is-a-pod)
+   - [How to create and view ReplicaSets](#how-to-create-and-view-replicasets)
+     - [What is a ReplicaSet?](#what-is-a-replicaset)
+   - [How to create and view Deployments](#how-to-create-and-view-deployments)
+     - [What is a Deployment?](#what-is-a-deployment)
+     - [Problem with ReplicaSets](#problem-with-replicasets)
+     - [How Deployments Solve This Problem](#how-deployments-solve-this-problem)
+   - [How to perform a Rollout and view Revisions](#how-to-perform-a-rollout-and-view-revisions)
+     - [What is a Rollout?](#what-is-a-rollout)
+     - [What are Revisions?](#what-are-revisions)
+4. [Useful Commands](#useful-commands)
+   - [How to do port-forwarding](#how-to-do-port-forwarding)
+   - [How to stop or delete pods, services, and clusters](#how-to-stop-or-delete-pods-services-and-clusters)
+
 ## Introduction
 
 ### What is a Container?
