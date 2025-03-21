@@ -42,6 +42,26 @@ replicas are running at any given time. If a pod crashes or is deleted, the
 ReplicaSet will automatically create a new pod to replace it, ensuring the
 desired state is maintained.
 
+### What is a Deployment?
+
+A Deployment is a higher-level Kubernetes resource that manages ReplicaSets and
+provides declarative updates to applications. It ensures that the desired number
+of replicas of a pod are running and can update the pods to a new version
+without manual intervention.
+
+#### Problem with ReplicaSets
+
+When using a ReplicaSet, if you want to update your application to a new version
+(e.g., v2), you would need to manually delete each pod and create new ones with
+the updated version. This can be cumbersome and error-prone.
+
+#### How Deployments Solve This Problem
+
+Deployments automate the process of updating pods to a new version. When you
+apply a Deployment, it creates and manages ReplicaSets, which in turn create the
+pods. If you update the Deployment to a new version, it will automatically
+create a new ReplicaSet and gradually replace the old pods with new ones.
+
 ## Requirements
 
 - Docker
@@ -137,6 +157,29 @@ To test the ReplicaSet, you can view the pods, delete one of them, and then view
 the pods again to see that the ReplicaSet has automatically created a new pod.
 The commands for these actions can be found in the "Useful Commands" section.
 
+### How to create and view Deployments
+
+Before applying a Deployment, you need to delete any existing ReplicaSets and
+Pods. The commands for these actions can be found in the "Useful Commands"
+section.
+
+To create a Deployment, use the following command:
+
+```sh
+kubectl apply -f k8s/deployment.yaml
+```
+
+To view the status of your Deployments, use the following command:
+
+```sh
+kubectl get deployments
+```
+
+To test the Deployment, you can update the number of replicas in the
+`k8s/deployment.yaml` file, apply the file, and then use `kubectl get pods` to
+see the changes. The commands for these actions can be found in the "Useful
+Commands" section.
+
 ## Useful Commands
 
 ### How to do port-forwarding
@@ -161,6 +204,12 @@ To stop or delete a service, use the following command:
 
 ```sh
 kubectl delete service <service-name>
+```
+
+To stop or delete a ReplicaSet, use the following command:
+
+```sh
+kubectl delete replicaset <replicaset-name>
 ```
 
 To stop or delete a cluster, use the following command:
