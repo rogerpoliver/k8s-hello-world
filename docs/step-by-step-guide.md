@@ -185,6 +185,15 @@ To view the status of your Services, use the following command:
 kubectl get services
 ```
 
+#### Types of Services in Kubernetes
+
+Kubernetes provides four main types of services, each serving a specific purpose:
+
+- **ClusterIP**: Exposes the service on an internal IP in the cluster. This type makes the service only reachable from within the cluster. It is the default service type.
+- **NodePort**: Exposes the service on the same port of each selected node in the cluster using NAT. This type makes the service accessible from outside the cluster using `<NodeIP>:<NodePort>`.
+- **LoadBalancer**: Exposes the service externally using a cloud provider's load balancer. This type is used to balance traffic across multiple pods and provide a single point of access.
+- **ExternalName**: Maps the service to the contents of the `externalName` field (e.g., `foo.bar.example.com`), by returning a CNAME record with its value. This type is used to integrate external services into the cluster.
+
 #### What is `targetPort`?
 
 The `targetPort` is the port on the container that the service forwards traffic
