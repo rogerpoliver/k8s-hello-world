@@ -185,4 +185,17 @@ To view the status of your Services, use the following command:
 kubectl get services
 ```
 
+#### What is `targetPort`?
+
+The `targetPort` is the port on the container that the service forwards traffic
+to. It allows you to expose a different port on the service than the one the
+container is listening on. For example, you can expose port 80 on the service
+and forward it to port 8080 on the container.
+
+### How to use the proxy to access the API
+
+Kubernetes provides a proxy that allows you to access the Kubernetes API server.
+This can be useful for debugging and managing your cluster. For more details,
+refer to the "Useful Commands" section.
+
 [Back to README](../README.md)

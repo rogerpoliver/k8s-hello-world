@@ -10,6 +10,17 @@ from your local machine to port 8080 on the pod, use the following command:
 kubectl port-forward <pod-name> 8080:8080
 ```
 
+### How to use the proxy to access the API
+
+To start the proxy and specify the port, use the following command:
+
+```sh
+kubectl proxy --port=8001
+```
+
+Once the proxy is running, you can access the API server at
+`http://localhost:8001`.
+
 ### How to stop or delete pods, services, and clusters
 
 To stop or delete a pod, use the following command:
