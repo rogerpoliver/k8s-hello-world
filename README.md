@@ -27,6 +27,8 @@
    - [How to perform a Rollout and view Revisions](#how-to-perform-a-rollout-and-view-revisions)
      - [What is a Rollout?](#what-is-a-rollout)
      - [What are Revisions?](#what-are-revisions)
+   - [How to create and view Services](#how-to-create-and-view-services)
+     - [What is a Service?](#what-is-a-service)
 4. [Useful Commands](#useful-commands)
    - [How to do port-forwarding](#how-to-do-port-forwarding)
    - [How to stop or delete pods, services, and clusters](#how-to-stop-or-delete-pods-services-and-clusters)
@@ -308,6 +310,30 @@ To roll back to a previous revision, use the following command:
 
 ```sh
 kubectl rollout undo deployment/<deployment-name> --to-revision=<revision-number>
+```
+
+### How to create and view Services
+
+#### What is a Service?
+
+A Service in Kubernetes is an abstraction that defines a logical set of pods and
+a policy by which to access them. Services enable communication between
+different parts of your application and can expose your application to the
+internet. A Service also acts as a load balancer, distributing incoming network
+traffic across multiple pods to ensure no single pod becomes a bottleneck. This
+is particularly useful when you have multiple replicas of a pod running, as it
+ensures that the load is evenly distributed among them.
+
+To create a Service, use the following command:
+
+```sh
+kubectl apply -f k8s/service.yaml
+```
+
+To view the status of your Services, use the following command:
+
+```sh
+kubectl get services
 ```
 
 ## Useful Commands
