@@ -1,14 +1,18 @@
 package main
 
 import (
-    "net/http"
+	"fmt"
+	"net/http"
+	"os"
 )
 
 func handler(response http.ResponseWriter, request *http.Request) {
-    response.Write([]byte("<h1>Hello, World!</h1>"))
+	name := os.Getenv("NAME")
+	age := os.Getenv("AGE")
+	fmt.Fprintf(response, "<h1>Hello, I'm %s and I'm %s</h1>", name, age)
 }
 
 func main() {
-    http.HandleFunc("/", handler)
-    http.ListenAndServe(":8080", nil)
+	http.HandleFunc("/", handler)
+	http.ListenAndServe(":8080", nil)
 }
