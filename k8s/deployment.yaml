@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
+metadata:
   name: goserver
   labels:
     app: goserver
 spec:
-  selector: 
+  selector:
     matchLabels:
       app: goserver
   replicas: 2
@@ -16,7 +16,22 @@ spec:
     spec:
       containers:
         - name: "goserver"
-          image: "rogerpoliver/hello-go:v2"
+          image: "rogerpoliver/hello-go:v3"
           envFrom:
             - configMapRef:
                 name: goserver-env
+            - secretRef:
+                name: goserver-secret
+
+          volumeMounts:
+            - mountPath: "/myfamily/family.txt"
+              name: config
+              readOnly: true
+
+      volumes:
+        - name: config
+          configMap:
+            name: configmap-family
+            items:
+              - key: members
+                path: "family.txt"
