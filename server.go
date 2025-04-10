@@ -5,7 +5,10 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
+
+var startedAt = time.Now()
 
 func Handler(response http.ResponseWriter, request *http.Request) {
 	name := os.Getenv("NAME")
@@ -26,9 +29,21 @@ func ConfigMap(response http.ResponseWriter, request *http.Request) {
 	fmt.Fprintf(response, "My family: %s.", string(data))
 }
 
+func Healthz(response http.ResponseWriter, request *http.Request) {
+	duration := time.Since(startedAt)
+	if duration.Seconds() > 25 {
+		response.WriteHeader(500)
+		response.Write([]byte(fmt.Sprintf("Duration: %v", duration.Seconds())))
+	} else {
+		response.WriteHeader(200)
+		response.Write([]byte("Ok"))
+	}
+}
+
 func main() {
 	http.HandleFunc("/", Handler)
 	http.HandleFunc("/configmap", ConfigMap)
 	http.HandleFunc("/secret", SecretHandler)
+	http.HandleFunc("/healthz", Healthz)
 	http.ListenAndServe(":8080", nil)
 }
