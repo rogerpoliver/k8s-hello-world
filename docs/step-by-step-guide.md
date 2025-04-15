@@ -250,6 +250,51 @@ readinessProbe:
    periodSeconds: 5
 ```
 
+#### What is a Startup Probe?
+
+A Startup Probe is used to determine if an application has successfully started.
+It is particularly useful for applications that take a long time to initialize.
+Without a Startup Probe, combining `livenessProbe` and `readinessProbe` can lead
+to issues where the `livenessProbe` restarts the container before it has fully
+started, causing a crash loop.
+
+The `startupProbe` is designed to address this problem by delaying the execution
+of `livenessProbe` and `readinessProbe` until the application has successfully
+started. Once the `startupProbe` succeeds, Kubernetes will begin checking the
+`livenessProbe` and `readinessProbe` as usual.
+
+To configure a Startup Probe, you can add the `startupProbe` field to your pod's
+YAML file. For example:
+
+```yaml
+startupProbe:
+   httpGet:
+      path: /startupz
+      port: 8080
+   initialDelaySeconds: 10
+   periodSeconds: 5
+   failureThreshold: 30
+```
+
+#### Why Use a Startup Probe?
+
+- **Long Initialization Times**: Some applications require significant time to
+  initialize, and a `livenessProbe` may incorrectly restart them during this
+  period.
+- **Avoid Crash Loops**: By ensuring the application has fully started before
+  other probes are executed, `startupProbe` prevents unnecessary restarts and
+  crash loops.
+
+#### How It Works with Other Probes
+
+- The `startupProbe` takes precedence over `livenessProbe` and `readinessProbe`
+  during the startup phase.
+- Once the `startupProbe` succeeds, Kubernetes begins executing the
+  `livenessProbe` and `readinessProbe` as configured.
+
+This ensures a smoother startup process for applications with complex or lengthy
+initialization requirements.
+
 #### Key Differences Between Liveness and Readiness Probes
 
 - **Liveness Probe**: Ensures the container is alive and restarts it if
