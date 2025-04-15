@@ -31,7 +31,7 @@ func ConfigMap(response http.ResponseWriter, request *http.Request) {
 
 func Healthz(response http.ResponseWriter, request *http.Request) {
 	duration := time.Since(startedAt)
-	if duration.Seconds() > 25 {
+	if duration.Seconds() < 10 {
 		response.WriteHeader(500)
 		response.Write([]byte(fmt.Sprintf("Duration: %v", duration.Seconds())))
 	} else {

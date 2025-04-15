@@ -17,14 +17,38 @@ spec:
       containers:
         - name: "goserver"
           image: "rogerpoliver/hello-go:v3"
+          
+          startupProbe:
+            http:
+              path: /healthz
+              port: 8000
+            periodoSeconds: 3
+            failureThreshold: 30
+
+          readinessProbe:
+            httGet:
+              path: /healthz
+              port: 8000
+            periodSeconds: 3
+            failureThreshold: 1
+
           livenessProbe: 
-          httpGet:
-            path: /healthz
-            port: 8000
-          periodoSeconds: 5
-          failureThreshold: 1
-          timeoutSeconds: 1
-          successThreshould: 1
+            httpGet:
+              path: /healthz
+              port: 8000
+            periodoSeconds: 5
+            failureThreshold: 1
+            timeoutSeconds: 1
+            successThreshould: 1
+
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+          
           envFrom:
             - configMapRef:
                 name: goserver-env
