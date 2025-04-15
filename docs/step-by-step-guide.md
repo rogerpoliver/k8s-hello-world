@@ -187,12 +187,21 @@ kubectl get services
 
 #### Types of Services in Kubernetes
 
-Kubernetes provides four main types of services, each serving a specific purpose:
+Kubernetes provides four main types of services, each serving a specific
+purpose:
 
-- **ClusterIP**: Exposes the service on an internal IP in the cluster. This type makes the service only reachable from within the cluster. It is the default service type.
-- **NodePort**: Exposes the service on the same port of each selected node in the cluster using NAT. This type makes the service accessible from outside the cluster using `<NodeIP>:<NodePort>`.
-- **LoadBalancer**: Exposes the service externally using a cloud provider's load balancer. This type is used to balance traffic across multiple pods and provide a single point of access.
-- **ExternalName**: Maps the service to the contents of the `externalName` field (e.g., `foo.bar.example.com`), by returning a CNAME record with its value. This type is used to integrate external services into the cluster.
+- **ClusterIP**: Exposes the service on an internal IP in the cluster. This type
+  makes the service only reachable from within the cluster. It is the default
+  service type.
+- **NodePort**: Exposes the service on the same port of each selected node in
+  the cluster using NAT. This type makes the service accessible from outside the
+  cluster using `<NodeIP>:<NodePort>`.
+- **LoadBalancer**: Exposes the service externally using a cloud provider's load
+  balancer. This type is used to balance traffic across multiple pods and
+  provide a single point of access.
+- **ExternalName**: Maps the service to the contents of the `externalName` field
+  (e.g., `foo.bar.example.com`), by returning a CNAME record with its value.
+  This type is used to integrate external services into the cluster.
 
 #### What is `targetPort`?
 
@@ -200,6 +209,55 @@ The `targetPort` is the port on the container that the service forwards traffic
 to. It allows you to expose a different port on the service than the one the
 container is listening on. For example, you can expose port 80 on the service
 and forward it to port 8080 on the container.
+
+### How to use Liveness and Readiness Probes
+
+#### What is a Liveness Probe?
+
+A Liveness Probe is used to determine if a container is still running. If the
+Liveness Probe fails, Kubernetes will restart the container to try to recover
+it. This is useful for detecting and remedying situations where an application
+is stuck or in a deadlock state.
+
+To configure a Liveness Probe, you can add the `livenessProbe` field to your
+pod's YAML file. For example:
+
+```yaml
+livenessProbe:
+   httpGet:
+      path: /healthz
+      port: 8080
+   initialDelaySeconds: 3
+   periodSeconds: 5
+```
+
+#### What is a Readiness Probe?
+
+A Readiness Probe is used to determine if a container is ready to serve
+requests. If the Readiness Probe fails, Kubernetes will remove the pod from the
+list of endpoints for the service, ensuring that no traffic is sent to it until
+it becomes ready again.
+
+To configure a Readiness Probe, you can add the `readinessProbe` field to your
+pod's YAML file. For example:
+
+```yaml
+readinessProbe:
+   httpGet:
+      path: /readyz
+      port: 8080
+   initialDelaySeconds: 3
+   periodSeconds: 5
+```
+
+#### Key Differences Between Liveness and Readiness Probes
+
+- **Liveness Probe**: Ensures the container is alive and restarts it if
+  necessary.
+- **Readiness Probe**: Ensures the container is ready to serve traffic and
+  temporarily removes it from the service if it is not.
+
+For more details, refer to the Kubernetes documentation on probes.
 
 ### How to use the proxy to access the API
 
